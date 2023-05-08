@@ -20,11 +20,11 @@ class Car{
     }
       toggleAvailability(){
         this.isAvailable=!this.isAvailable
-  
+        console.log(this.isAvailable)
     }
 }
-let car=new Car("Toyota","Camry",2020,true);
-console.log(car);
+let car=new Car("Toyota","Camry",2020,false);
+car.toggleAvailability();
 // 2) Create a Rental class or function constructor that has the following properties:
 // ● car (Car object): The car that has been rented.
 // ● renterName (string): The name of the person who rented the car.
@@ -33,15 +33,31 @@ console.log(car);
 // The Rental class or function constructor should also have a method called
 // calculateRentalDuration that returns the rental duration in days.
 
-
-
-
-
-
+class Rental{
+    constructor(car,renterName,rentalStartDate,rentalEndDate){    
+    this.car=car
+    this.renterName=renterName
+    this.rentalStartDate=rentalStartDate
+    this.rentalEndDate=rentalEndDate
+}
+calculateRentalDuration(){
+  let rentalDuration=(this.rentalEndDate-this.rentalStartDate)
+    console.log(rentalDuration)
+}
+}
 // 3) Create an instance of the Car class or function constructor for a car in the
 // inventory. Then, create an instance of the Rental class or function constructor for
 // a rental involving the car you created. Finally, calculate the rental duration using
 // the calculateRentalDuration method.
+
+let car2=new Rental("Nissan")
+
+
+
+
+
+
+
 // Question2
 // You are building a simple quiz app that contains multiple-choice questions. Your task is
 // to create two JavaScript classes: Question and Quiz. The Question class will represent
@@ -54,6 +70,21 @@ console.log(car);
 // The Question class should also have a method called checkAnswer that takes a
 // user's answer as a parameter and returns true if the answer is correct and false
 // otherwise.
+class Question{
+  constructor(text,options,correctAnswer){
+    this.text=text
+    this.options=options
+    this.correctAnswer=correctAnswer
+  }
+  checkAnswer(userAnswer){
+    return userAnswer===this.correctAnswer
+  }
+}
+let question=new Question("Where do you live")
+let userAnswer="Kisumu"
+let isCorrect=question.checkAnswer(userAnswer)
+console.log(isCorrect);
+//
 // 2. Create a Quiz class with the following properties:
 // ● questions(array):An array of Question objects.
 // ● currentQuestionIndex(number): The index of the current question in the
@@ -67,3 +98,40 @@ console.log(car);
 // ● submitAnswer: Takes a user's answer as a parameter, checks if the answer is
 // correct using the checkAnswer method of the Question class, and updates the
 // score if the answer is correct
+class Quiz {
+  constructor() {
+    this.questions = [];
+    this.currentQuestionIndex = 0;
+    this.score = 0;
+  }
+  addResults(question) {
+    this.questions.push(question);
+  }
+  nextQuestion() {
+    this.currentQuestionIndex ++;
+  }
+  submitAnswer(userAnswer) {
+    const currentQuestion = this.questions[this.currentQuestionIndex];
+    if (currentQuestion.checkAnswer(userAnswer)) {
+      this.score++;
+    }
+  }
+}
+let question1 = new Question(
+  "Which of the following,is not a country in East Africa?",
+  ["Uganda","Kenya","Tanzania","South Africa"],
+  "South Africa"
+);
+let question2 = new Question(
+  "Who among the following is the president of Kenya?",
+  ["Uhuru", "Raila", "Rigathi", "Ruto"],
+  "Ruto"
+);
+let quiz = new Quiz();
+quiz.addResults(question1);
+quiz.submitAnswer("South Africa")
+quiz.addResults(question2);
+quiz.submitAnswer("Ruto")
+console.log(quiz.score);
+
+
